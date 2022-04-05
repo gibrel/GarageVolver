@@ -32,5 +32,57 @@ namespace GarageVolver.UnitTest.Systems.Controllers
 
             result.StatusCode.Should().Be(200);
         }
+
+        [Theory]
+        [AutoDomainData]
+        public async Task GetTrucks_OnSucess_InvokesTruckServiceOnce(
+            [Frozen] Mock<ITruckService> mockTruckService,
+            List<GetTruckModel> Trucks)
+        {
+            mockTruckService
+                .Setup(service => service.GetAll<GetTruckModel>())
+                .ReturnsAsync(Trucks);
+            var sut = new TruckController(mockTruckService.Object);
+
+            var result = await sut.Get();
+
+            mockTruckService.Verify(
+                service => service.GetAll<GetTruckModel>(), Times.Once());
+        }
+
+        [Theory]
+        [AutoDomainData]
+        public async Task GetTrucks_OnSucess_ReturnListOfTrucks(
+            [Frozen] Mock<ITruckService> mockTruckService,
+            List<GetTruckModel> Trucks)
+        {
+            mockTruckService
+                .Setup(service => service.GetAll<GetTruckModel>())
+                .ReturnsAsync(Trucks);
+            var sut = new TruckController(mockTruckService.Object);
+
+            var result = await sut.Get();
+
+            result.Should().BeOfType<OkObjectResult>();
+            var objectResult = result as ObjectResult;
+            objectResult.Value.Should().BeOfType<List<GetTruckModel>>();
+        }
+
+        [Theory]
+        [AutoDomainData]
+        public async Task GetTrucks_OnNoTrucksFound_Return404(
+            [Frozen] Mock<ITruckService> mockTruckService)
+        {
+            mockTruckService
+                .Setup(service => service.GetAll<GetTruckModel>())
+                .ReturnsAsync(new List<GetTruckModel>());
+            var sut = new TruckController(mockTruckService.Object);
+
+            var result = await sut.Get();
+
+            result.Should().BeOfType<NotFoundResult>();
+            var objectResult = result as NotFoundResult;
+            objectResult.StatusCode.Should().Be(404);
+        }
     }
 }
