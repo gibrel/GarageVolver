@@ -1,0 +1,66 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32328.378
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Application", "1 - Application", "{EE43E552-E683-4DB6-87A8-490DE16D661B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Domain", "2 - Domain", "{85F85635-9048-4137-9F45-F9CCAA44B47B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Service", "3 - Service", "{50422403-471D-42A3-B5A6-DA6E2C69F177}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - Infrastructure", "4 - Infrastructure", "{78A63F45-8AA7-419A-9CC8-845AD2145121}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5 - Test", "5 - Test", "{CFF7870C-AA89-4F4C-B357-EBE3C03B5A82}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GarageVolver.API", "GarageVolver.API\GarageVolver.API.csproj", "{BDA1C5E6-0AEB-41A4-AC54-C013CD6432C0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GarageVolver.Domain", "GarageVolver.Domain\GarageVolver.Domain.csproj", "{FBF3918A-33D0-4A64-A663-1F4AA07672CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GarageVolver.Service", "GarageVolver.Service\GarageVolver.Service.csproj", "{44C53BA2-6096-452D-9C16-B1C8AA088252}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GarageVolver.Data", "GarageVolver.Data\GarageVolver.Data.csproj", "{865AEB4B-AC64-4365-9787-53C335C8AD9B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GarageVolver.UnitTest", "GarageVolver.UnitTest\GarageVolver.UnitTest.csproj", "{6F9407AF-80C8-4B3F-9317-62AE9A2A9BD1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BDA1C5E6-0AEB-41A4-AC54-C013CD6432C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDA1C5E6-0AEB-41A4-AC54-C013CD6432C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDA1C5E6-0AEB-41A4-AC54-C013CD6432C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDA1C5E6-0AEB-41A4-AC54-C013CD6432C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBF3918A-33D0-4A64-A663-1F4AA07672CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBF3918A-33D0-4A64-A663-1F4AA07672CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBF3918A-33D0-4A64-A663-1F4AA07672CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBF3918A-33D0-4A64-A663-1F4AA07672CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44C53BA2-6096-452D-9C16-B1C8AA088252}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44C53BA2-6096-452D-9C16-B1C8AA088252}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44C53BA2-6096-452D-9C16-B1C8AA088252}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44C53BA2-6096-452D-9C16-B1C8AA088252}.Release|Any CPU.Build.0 = Release|Any CPU
+		{865AEB4B-AC64-4365-9787-53C335C8AD9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{865AEB4B-AC64-4365-9787-53C335C8AD9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{865AEB4B-AC64-4365-9787-53C335C8AD9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{865AEB4B-AC64-4365-9787-53C335C8AD9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F9407AF-80C8-4B3F-9317-62AE9A2A9BD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F9407AF-80C8-4B3F-9317-62AE9A2A9BD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F9407AF-80C8-4B3F-9317-62AE9A2A9BD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F9407AF-80C8-4B3F-9317-62AE9A2A9BD1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BDA1C5E6-0AEB-41A4-AC54-C013CD6432C0} = {EE43E552-E683-4DB6-87A8-490DE16D661B}
+		{FBF3918A-33D0-4A64-A663-1F4AA07672CC} = {85F85635-9048-4137-9F45-F9CCAA44B47B}
+		{44C53BA2-6096-452D-9C16-B1C8AA088252} = {50422403-471D-42A3-B5A6-DA6E2C69F177}
+		{865AEB4B-AC64-4365-9787-53C335C8AD9B} = {78A63F45-8AA7-419A-9CC8-845AD2145121}
+		{6F9407AF-80C8-4B3F-9317-62AE9A2A9BD1} = {CFF7870C-AA89-4F4C-B357-EBE3C03B5A82}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {63390CEF-3274-4876-B4F8-C1CCE9165144}
+	EndGlobalSection
+EndGlobal
