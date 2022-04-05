@@ -6,7 +6,6 @@ using GarageVolver.Domain.Interfaces;
 using GarageVolver.UnitTest.Fixtures;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 
