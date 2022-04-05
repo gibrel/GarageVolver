@@ -6,10 +6,7 @@ using GarageVolver.Domain.Interfaces;
 using GarageVolver.UnitTest.Fixtures;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -21,11 +18,11 @@ namespace GarageVolver.UnitTest.Systems.Controllers
         [AutoDomainData]
         public async Task GetTrucks_OnSucess_ReturnsStatusCode200Async(
             [Frozen] Mock<ITruckService> mockTruckService,
-            List<GetTruckModel> Trucks)
+            List<GetTruckModel> trucks)
         {
             mockTruckService
                 .Setup(service => service.GetAll<GetTruckModel>())
-                .ReturnsAsync(Trucks);
+                .ReturnsAsync(trucks);
             var sut = new TruckController(mockTruckService.Object);
 
             var result = await sut.Get() as ObjectResult;
@@ -37,11 +34,11 @@ namespace GarageVolver.UnitTest.Systems.Controllers
         [AutoDomainData]
         public async Task GetTrucks_OnSucess_InvokesTruckServiceOnce(
             [Frozen] Mock<ITruckService> mockTruckService,
-            List<GetTruckModel> Trucks)
+            List<GetTruckModel> trucks)
         {
             mockTruckService
                 .Setup(service => service.GetAll<GetTruckModel>())
-                .ReturnsAsync(Trucks);
+                .ReturnsAsync(trucks);
             var sut = new TruckController(mockTruckService.Object);
 
             var result = await sut.Get();
@@ -54,11 +51,11 @@ namespace GarageVolver.UnitTest.Systems.Controllers
         [AutoDomainData]
         public async Task GetTrucks_OnSucess_ReturnListOfTrucks(
             [Frozen] Mock<ITruckService> mockTruckService,
-            List<GetTruckModel> Trucks)
+            List<GetTruckModel> trucks)
         {
             mockTruckService
                 .Setup(service => service.GetAll<GetTruckModel>())
-                .ReturnsAsync(Trucks);
+                .ReturnsAsync(trucks);
             var sut = new TruckController(mockTruckService.Object);
 
             var result = await sut.Get();
