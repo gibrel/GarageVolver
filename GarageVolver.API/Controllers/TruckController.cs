@@ -1,5 +1,6 @@
 ﻿using GarageVolver.API.Models;
 using GarageVolver.Domain.Interfaces;
+using GarageVolver.Service.Validators;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GarageVolver.API.Controllers
@@ -46,7 +47,8 @@ namespace GarageVolver.API.Controllers
         /// <summary>
         /// Enpoint responsible to retrieve truck with corresponding id.
         /// </summary>
-        /// <returns><c>Truck</c> class objects, enveloped in <c>ActionResult</c>.</returns>
+        /// <param name="id">Id of the truck.</param>
+        /// <returns><c>Truck</c> class object, enveloped in <c>ActionResult</c>.</returns>
         [HttpGet("GetTruckById")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GetTruckModel))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -59,7 +61,32 @@ namespace GarageVolver.API.Controllers
                 return Ok(truck);
             }
 
-            return NotFound($"Could not find truck with id:{id}");
+            return NotFound($"Could not find truck with id:{id}.");
+        }
+
+        /// <summary>
+        /// Endpoint responsible to create new truck.
+        /// </summary>
+        /// <param name="newTruck"></param>
+        /// <returns>Created <c>Truck</c> class object, enveloped in <c>ActionResult</c>.</returns>
+        [HttpGet("CreateTruck")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GetTruckModel))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        public async Task<IActionResult> Create([FromBody] CreateTruckModel newTruck)
+        {
+            if (newTruck == null)
+                return BadRequest("Could not create truck with invalid input.");
+
+            var createdTruck =
+                await _truckService.Add<CreateTruckModel, GetTruckModel, TruckValidator>(newTruck);
+
+            if(createdTruck != null)
+            {
+                return Ok(createdTruck);
+            }
+
+            return Conflict("Could not create truck, internal operation failure.");
         }
 
     }
