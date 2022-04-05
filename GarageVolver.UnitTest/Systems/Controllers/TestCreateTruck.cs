@@ -7,6 +7,7 @@ using GarageVolver.Service.Validators;
 using GarageVolver.UnitTest.Fixtures;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
@@ -87,6 +88,26 @@ namespace GarageVolver.UnitTest.Systems.Controllers
             result.Should().BeOfType<BadRequestObjectResult>();
             var objectResult = result as BadRequestObjectResult;
             objectResult.StatusCode.Should().Be(400);
+        }
+
+        [Theory]
+        [AutoDomainData]
+        public async Task CreateTruck_OnInvalidContent_Return409(
+            [Frozen] Mock<ITruckService> mockTruckService,
+            CreateTruckModel newTruck)
+        {
+            newTruck.ModelYear = DateTime.Now.Year - 1;
+            GetTruckModel? truck = null;
+            mockTruckService
+                .Setup(service => service.Add<CreateTruckModel, GetTruckModel, TruckValidator>(newTruck))
+                .ReturnsAsync(truck);
+            var sut = new TruckController(mockTruckService.Object);
+
+            var result = await sut.Create(newTruck);
+
+            result.Should().BeOfType<ConflictObjectResult>();
+            var objectResult = result as ConflictObjectResult;
+            objectResult.StatusCode.Should().Be(409);
         }
     }
 }
