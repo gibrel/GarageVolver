@@ -23,4 +23,12 @@
     <ProjectReference Include="..\GarageVolver.Domain\GarageVolver.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Configurations\" />
+    <Folder Include="Context\" />
+    <Folder Include="Mapping\" />
+    <Folder Include="Migrations\" />
+    <Folder Include="Repository\" />
+  </ItemGroup>
+
 </Project>
