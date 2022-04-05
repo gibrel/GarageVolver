@@ -18,14 +18,14 @@ namespace GarageVolver.UnitTest.Systems.Controllers
         [AutoDomainData]
         public async Task GetTruckById_OnSucess_ReturnsStatusCode200Async(
             [Frozen] Mock<ITruckService> mockTruckService,
-            List<GetTruckModel> trucks)
+            GetTruckModel truck)
         {
             mockTruckService
-                .Setup(service => service.GetAll<GetTruckModel>())
-                .ReturnsAsync(trucks);
+                .Setup(service => service.GetById<GetTruckModel>(truck.Id))
+                .ReturnsAsync(truck);
             var sut = new TruckController(mockTruckService.Object);
 
-            var result = await sut.Get() as ObjectResult;
+            var result = await sut.Get(truck.Id) as ObjectResult;
 
             result.StatusCode.Should().Be(200);
         }
@@ -34,51 +34,53 @@ namespace GarageVolver.UnitTest.Systems.Controllers
         [AutoDomainData]
         public async Task GetTruckById_OnSucess_InvokesTruckServiceOnce(
             [Frozen] Mock<ITruckService> mockTruckService,
-            List<GetTruckModel> trucks)
+            GetTruckModel truck)
         {
             mockTruckService
-                .Setup(service => service.GetAll<GetTruckModel>())
-                .ReturnsAsync(trucks);
+                .Setup(service => service.GetById<GetTruckModel>(truck.Id))
+                .ReturnsAsync(truck);
             var sut = new TruckController(mockTruckService.Object);
 
-            var result = await sut.Get();
+            var result = await sut.Get(truck.Id);
 
             mockTruckService.Verify(
-                service => service.GetAll<GetTruckModel>(), Times.Once());
+                service => service.GetById<GetTruckModel>(truck.Id), Times.Once());
         }
 
         [Theory]
         [AutoDomainData]
-        public async Task GetTruckById_OnSucess_ReturnListOfTrucks(
+        public async Task GetTruckById_OnSucess_ReturnTruck(
             [Frozen] Mock<ITruckService> mockTruckService,
-            List<GetTruckModel> trucks)
+            GetTruckModel truck)
         {
             mockTruckService
-                .Setup(service => service.GetAll<GetTruckModel>())
-                .ReturnsAsync(trucks);
+                .Setup(service => service.GetById<GetTruckModel>(truck.Id))
+                .ReturnsAsync(truck);
             var sut = new TruckController(mockTruckService.Object);
 
-            var result = await sut.Get();
+            var result = await sut.Get(truck.Id);
 
             result.Should().BeOfType<OkObjectResult>();
             var objectResult = result as ObjectResult;
-            objectResult.Value.Should().BeOfType<List<GetTruckModel>>();
+            objectResult.Value.Should().BeOfType<GetTruckModel>();
         }
 
         [Theory]
         [AutoDomainData]
-        public async Task GetTruckById_OnNoTrucksFound_Return404(
-            [Frozen] Mock<ITruckService> mockTruckService)
+        public async Task GetTruckById_OnNoTruckFound_Return404(
+            [Frozen] Mock<ITruckService> mockTruckService,
+            int truckId)
         {
+            GetTruckModel? truck = null;
             mockTruckService
-                .Setup(service => service.GetAll<GetTruckModel>())
-                .ReturnsAsync(new List<GetTruckModel>());
+                .Setup(service => service.GetById<GetTruckModel>(truckId))
+                .ReturnsAsync(truck);
             var sut = new TruckController(mockTruckService.Object);
 
-            var result = await sut.Get();
+            var result = await sut.Get(truckId);
 
-            result.Should().BeOfType<NotFoundResult>();
-            var objectResult = result as NotFoundResult;
+            result.Should().BeOfType<NotFoundObjectResult>();
+            var objectResult = result as NotFoundObjectResult;
             objectResult.StatusCode.Should().Be(404);
         }
     }
