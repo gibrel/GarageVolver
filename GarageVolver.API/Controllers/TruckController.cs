@@ -44,9 +44,9 @@ namespace GarageVolver.API.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Enpoint responsible to retrieve truck with corresponding id.
         /// </summary>
-        /// <returns>List of <c>Truck</c> class objects, enveloped in <c>ActionResult</c>.</returns>
+        /// <returns><c>Truck</c> class objects, enveloped in <c>ActionResult</c>.</returns>
         [HttpGet("GetTruckById")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GetTruckModel))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
