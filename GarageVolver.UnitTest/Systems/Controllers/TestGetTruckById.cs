@@ -65,6 +65,26 @@ namespace GarageVolver.UnitTest.Systems.Controllers
         }
 
         [Theory]
+        [InlineAutoData(0)]
+        [InlineAutoData(-1)]
+        public async Task GetTruckById_OnInvalidInput_Return400(
+            int truckId,
+            [Frozen] Mock<ITruckService> mockTruckService)
+        {
+            GetTruckModel? truck = null;
+            mockTruckService
+                .Setup(service => service.GetById<GetTruckModel>(truckId))
+                .ReturnsAsync(truck);
+            var sut = new TruckController(mockTruckService.Object);
+
+            var result = await sut.Get(truckId);
+
+            result.Should().BeOfType<BadRequestObjectResult>();
+            var objectResult = result as BadRequestObjectResult;
+            objectResult.StatusCode.Should().Be(400);
+        }
+
+        [Theory]
         [AutoDomainData]
         public async Task GetTruckById_OnNoTruckFound_Return404(
             [Frozen] Mock<ITruckService> mockTruckService,
