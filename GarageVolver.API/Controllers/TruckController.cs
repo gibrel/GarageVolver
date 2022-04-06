@@ -30,7 +30,7 @@ namespace GarageVolver.API.Controllers
         /// </summary>
         /// <param name="newTruck"><c>CreateTruckModel</c> class object with truck data.</param>
         /// <returns>Created <c>GetTruckModel</c> class object with data of the created truck.</returns>
-        [HttpGet("CreateTruck")]
+        [HttpPut("CreateTruck")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GetTruckModel))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
@@ -76,9 +76,13 @@ namespace GarageVolver.API.Controllers
         /// <returns><c>GetTruckModel</c> class object of the corresponding id.</returns>
         [HttpGet("GetTruckById")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GetTruckModel))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Get(int id)
         {
+            if (id <= 0)
+                return BadRequest($"Invalid truck id:'{id}'.");
+
             var truck = await _truckService.GetById<GetTruckModel>(id);
 
             if (truck != null)
@@ -86,7 +90,7 @@ namespace GarageVolver.API.Controllers
                 return Ok(truck);
             }
 
-            return NotFound($"Could not find truck with id:{id}.");
+            return NotFound($"Could not find truck with id:'{id}'.");
         }
 
         /// <summary>
@@ -94,7 +98,7 @@ namespace GarageVolver.API.Controllers
         /// </summary>
         /// <param name="truckToUpdate"><c>UpdateTruckModel</c> class object with truck data to be updated.</param>
         /// <returns>Updated <c>GetTruckModel</c> class object.</returns>
-        [HttpGet("UpdateTruck")]
+        [HttpPatch("UpdateTruck")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GetTruckModel))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
@@ -114,5 +118,27 @@ namespace GarageVolver.API.Controllers
             return Conflict("Could not update truck, internal operation failure.");
         }
 
+        /// <summary>
+        /// Enpoint responsible to delete truck registry by its id.
+        /// </summary>
+        /// <param name="id">Id of the truck to be purged.</param>
+        /// <returns>String message with success or failure to delete register.</returns>
+        [HttpDelete("DeleteTruck")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(string))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> Delete(int id)
+        {
+            if (id <= 0)
+                return BadRequest($"Invalid truck id:'{id}'.");
+
+            var response = await _truckService.Delete(id);
+
+            if (response)
+            {
+                return Ok($"Sucessfully deleted register of truck with id:'{id}'");
+            }
+
+            return NotFound($"Could not find truck with id:'{id}'.");
+        }
     }
 }
