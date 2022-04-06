@@ -26,9 +26,34 @@ namespace GarageVolver.API.Controllers
         }
 
         /// <summary>
+        /// Endpoint responsible to create new truck.
+        /// </summary>
+        /// <param name="newTruck"><c>CreateTruckModel</c> class object with truck data.</param>
+        /// <returns>Created <c>GetTruckModel</c> class object with data of the created truck.</returns>
+        [HttpGet("CreateTruck")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GetTruckModel))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        public async Task<IActionResult> Create([FromBody] CreateTruckModel newTruck)
+        {
+            if (newTruck == null)
+                return BadRequest("Could not create truck with invalid input.");
+
+            var createdTruck =
+                await _truckService.Add<CreateTruckModel, GetTruckModel, TruckValidator>(newTruck);
+
+            if (createdTruck != null)
+            {
+                return Ok(createdTruck);
+            }
+
+            return Conflict("Could not create truck, internal operation failure.");
+        }
+
+        /// <summary>
         /// Enpoint responsible to retrieve a list of all trucks.
         /// </summary>
-        /// <returns>List of <c>Truck</c> class objects, enveloped in <c>ActionResult</c>.</returns>
+        /// <returns>List of <c>GetTruckModel</c> class objects of all found trucks.</returns>
         [HttpGet("GetTrucks")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<GetTruckModel>))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -48,7 +73,7 @@ namespace GarageVolver.API.Controllers
         /// Enpoint responsible to retrieve truck with corresponding id.
         /// </summary>
         /// <param name="id">Id of the truck.</param>
-        /// <returns><c>Truck</c> class object, enveloped in <c>ActionResult</c>.</returns>
+        /// <returns><c>GetTruckModel</c> class object of the corresponding id.</returns>
         [HttpGet("GetTruckById")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GetTruckModel))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -65,28 +90,28 @@ namespace GarageVolver.API.Controllers
         }
 
         /// <summary>
-        /// Endpoint responsible to create new truck.
+        /// Enpoint responsible to update truck with new values.
         /// </summary>
-        /// <param name="newTruck"></param>
-        /// <returns>Created <c>Truck</c> class object, enveloped in <c>ActionResult</c>.</returns>
-        [HttpGet("CreateTruck")]
+        /// <param name="truckToUpdate"><c>UpdateTruckModel</c> class object with truck data to be updated.</param>
+        /// <returns>Updated <c>GetTruckModel</c> class object.</returns>
+        [HttpGet("UpdateTruck")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GetTruckModel))]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
-        public async Task<IActionResult> Create([FromBody] CreateTruckModel newTruck)
+        public async Task<IActionResult> Update([FromBody] UpdateTruckModel truckToUpdate)
         {
-            if (newTruck == null)
-                return BadRequest("Could not create truck with invalid input.");
+            if (truckToUpdate == null)
+                return BadRequest("Could not update truck with invalid input.");
 
-            var createdTruck =
-                await _truckService.Add<CreateTruckModel, GetTruckModel, TruckValidator>(newTruck);
+            var updatedTruck =
+                await _truckService.Update<UpdateTruckModel, GetTruckModel, TruckValidator>(truckToUpdate);
 
-            if(createdTruck != null)
+            if (updatedTruck != null)
             {
-                return Ok(createdTruck);
+                return Ok(updatedTruck);
             }
 
-            return Conflict("Could not create truck, internal operation failure.");
+            return Conflict("Could not update truck, internal operation failure.");
         }
 
     }
