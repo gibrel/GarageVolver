@@ -48,7 +48,7 @@ namespace GarageVolver.UnitTest.Systems.Controllers
 
         [Theory]
         [AutoDomainData]
-        public async Task GetTruckById_OnSucess_ReturnTruck(
+        public async Task GetTruckById_OnSucess_ReturnTruckModel(
             [Frozen] Mock<ITruckService> mockTruckService,
             GetTruckModel truck)
         {

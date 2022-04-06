@@ -49,7 +49,7 @@ namespace GarageVolver.UnitTest.Systems.Controllers
 
         [Theory]
         [AutoDomainData]
-        public async Task GetTrucks_OnSucess_ReturnListOfTrucks(
+        public async Task GetTrucks_OnSucess_ReturnListOfTruckModels(
             [Frozen] Mock<ITruckService> mockTruckService,
             List<GetTruckModel> trucks)
         {

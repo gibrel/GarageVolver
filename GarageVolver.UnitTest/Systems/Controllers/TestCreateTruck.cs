@@ -53,7 +53,7 @@ namespace GarageVolver.UnitTest.Systems.Controllers
 
         [Theory]
         [AutoDomainData]
-        public async Task CreateTruck_OnSucess_ReturnTruck(
+        public async Task CreateTruck_OnSucess_ReturnTruckModel(
             [Frozen] Mock<ITruckService> mockTruckService,
             CreateTruckModel newTruck,
             GetTruckModel truck)
@@ -73,8 +73,7 @@ namespace GarageVolver.UnitTest.Systems.Controllers
         [Theory]
         [AutoDomainData]
         public async Task CreateTruck_OnNullInput_Return400(
-            [Frozen] Mock<ITruckService> mockTruckService,
-            int truckId)
+            [Frozen] Mock<ITruckService> mockTruckService)
         {
             CreateTruckModel? newTruck = null;
             GetTruckModel? truck = null;
