@@ -14,12 +14,16 @@ namespace GarageVolver.Service.Validators
             RuleFor(t => t.ModelYear)
                 .NotEmpty().WithMessage("Please insert model year.")
                 .NotNull().WithMessage("Please insert model year.")
-                .LessThan(DateTime.Now.Year).WithMessage("Model year must be current year of next year.");
+                .GreaterThanOrEqualTo(DateTime.Now.Year)
+                    .WithMessage(t => $"[ModelYear:{t.ModelYear}] Model year must be current year of next year.")
+                .LessThanOrEqualTo(DateTime.Now.Year+1)
+                    .WithMessage(t => $"[ModelYear:{t.ModelYear}] Model year must be current year of next year.");
 
             RuleFor(t => t.ManufacturingYear)
                 .NotEmpty().WithMessage("Please insert manufacturing year.")
                 .NotNull().WithMessage("Please insert manufacturing year.")
-                .NotEqual(DateTime.Now.Year).WithMessage("Manufacturing year must be current year.");
+                .Equal(DateTime.Now.Year)
+                    .WithMessage(t => $"[ManufacturingYear:{t.ManufacturingYear}] Manufacturing year must be current year.");
         }
     }
 }
