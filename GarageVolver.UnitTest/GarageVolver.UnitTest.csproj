@@ -34,9 +34,7 @@
 
   <ItemGroup>
     <Folder Include="Helpers\" />
-    <Folder Include="Systems\Validators\" />
     <Folder Include="Systems\Repositories\" />
-    <Folder Include="Systems\Services\" />
   </ItemGroup>
 
 </Project>
