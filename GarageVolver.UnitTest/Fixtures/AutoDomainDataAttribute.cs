@@ -10,7 +10,7 @@ namespace GarageVolver.UnitTest.Fixtures
     public class AutoDomainDataAttribute : AutoDataAttribute
     {
         public AutoDomainDataAttribute()
-          : base(() => new Fixture().Customize(new AutoMoqCustomization()))
+            : base(() => new Fixture().Customize(new AutoMoqCustomization()))
         {
         }
     }
