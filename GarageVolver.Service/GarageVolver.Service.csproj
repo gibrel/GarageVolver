@@ -16,8 +16,4 @@
     <ProjectReference Include="..\GarageVolver.Domain\GarageVolver.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-
 </Project>
