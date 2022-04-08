@@ -26,4 +26,13 @@
     <ProjectReference Include="..\GarageVolver.Service\GarageVolver.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="GarageVolver.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestGarageVolver.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
