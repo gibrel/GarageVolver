@@ -32,6 +32,11 @@ namespace GarageVolver.Data.Mapping
                 .HasConversion(p => p.ToString(), p => int.Parse(p))
                 .HasColumnName("ManufacturingYear")
                 .HasColumnType("INTEGER");
+
+            builder.Property(t => t.LicencePlate)
+                .IsRequired()
+                .HasColumnName("LicencePlate")
+                .HasColumnType("TEXT");
         }
     }
 }
