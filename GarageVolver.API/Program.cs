@@ -1,9 +1,12 @@
 using AutoMapper;
-//using GarageVolver.API.Models;
 using GarageVolver.API.Configurations;
+using GarageVolver.Data.Configurations;
+using GarageVolver.Data.Context;
+using GarageVolver.Data.Repositories;
 using GarageVolver.Domain.Entities;
 using GarageVolver.Domain.Interfaces;
 using GarageVolver.Service.Services;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,6 +28,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+using (var scope = app.Services.CreateScope())
+using (var context = scope.ServiceProvider.GetService<SQLiteContext>())
+    context.Database.Migrate();
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
@@ -35,14 +42,19 @@ app.Run();
 
 void ConfigureServices(IServiceCollection services)
 {
+    services.Configure<SQLiteConfiguration>(
+        builder.Configuration.GetSection("database:sqlite"));
+
     services.AddSingleton(new MapperConfiguration(config =>
     {
         config.AddProfile<TruckMapProfile>();
     }).CreateMapper());
 
-    //builder.Services.AddScoped<IBaseRepository<Truck>, BaseRepository<Truck>>();
+    services.AddDbContext<SQLiteContext>();
+
+    builder.Services.AddScoped<IBaseRepository<Truck>, BaseRepository<Truck>>();
     builder.Services.AddScoped<IBaseService<Truck>, BaseService<Truck>>();
-    //builder.Services.AddScoped<ITruckRepository, TruckRepository>();
+    builder.Services.AddScoped<ITruckRepository, TruckRepository>();
     builder.Services.AddScoped<ITruckService, TruckService>();
 
     services.AddMvc(option => option.EnableEndpointRouting = false)
