@@ -37,7 +37,8 @@ namespace GarageVolver.API.Controllers
         ///     {
         ///        "modelName": "FH",
         ///        "manufacturingYear": 2022,
-        ///        "modelYear": 2023
+        ///        "modelYear": 2023,
+        ///        "licencePlate": "ABC1D23"
         ///     }
         ///
         /// </remarks>
@@ -119,7 +120,8 @@ namespace GarageVolver.API.Controllers
         ///        "id": 71,
         ///        "modelName": "FH",
         ///        "manufacturingYear": 2022,
-        ///        "modelYear": 2023
+        ///        "modelYear": 2023,
+        ///        "licencePlate": "ABC1D23"
         ///     }
         ///
         /// </remarks>
