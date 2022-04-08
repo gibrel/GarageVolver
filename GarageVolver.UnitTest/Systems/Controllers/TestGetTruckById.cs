@@ -16,9 +16,9 @@ namespace GarageVolver.UnitTest.Systems.Controllers
         [Theory]
         [AutoDomainData]
         public async Task GetTruckById_OnSucess_ReturnsStatusCode200Async(
-            [Frozen] Mock<ITruckService> mockTruckService,
-            GetTruckModel truck)
+            [Frozen] Mock<ITruckService> mockTruckService)
         {
+            var truck = TruckFixture.GenerateGetTruckModel();
             mockTruckService
                 .Setup(service => service.GetById<GetTruckModel>(truck.Id))
                 .ReturnsAsync(truck);
@@ -32,9 +32,9 @@ namespace GarageVolver.UnitTest.Systems.Controllers
         [Theory]
         [AutoDomainData]
         public async Task GetTruckById_OnSucess_InvokesTruckServiceOnce(
-            [Frozen] Mock<ITruckService> mockTruckService,
-            GetTruckModel truck)
+            [Frozen] Mock<ITruckService> mockTruckService)
         {
+            var truck = TruckFixture.GenerateGetTruckModel();
             mockTruckService
                 .Setup(service => service.GetById<GetTruckModel>(truck.Id))
                 .ReturnsAsync(truck);
@@ -49,9 +49,9 @@ namespace GarageVolver.UnitTest.Systems.Controllers
         [Theory]
         [AutoDomainData]
         public async Task GetTruckById_OnSucess_ReturnTruckModel(
-            [Frozen] Mock<ITruckService> mockTruckService,
-            GetTruckModel truck)
+            [Frozen] Mock<ITruckService> mockTruckService)
         {
+            var truck = TruckFixture.GenerateGetTruckModel();
             mockTruckService
                 .Setup(service => service.GetById<GetTruckModel>(truck.Id))
                 .ReturnsAsync(truck);

@@ -50,6 +50,17 @@ namespace GarageVolver.UnitTest.Fixtures
             };
         }
 
+        public static List<GetTruckModel> GenerateListOfTGetruckModels([Range(0, 10)] int ammount = 0, bool idNeeded = false)
+        {
+            var id = idNeeded ? _random.Next(1, 1000) : 0;
+            var list = new List<GetTruckModel>();
+            for (int i = 0; i < ammount; i++)
+            {
+                list.Add(GenerateGetTruckModel(idNeeded ? id++ : id));
+            }
+            return list;
+        }
+
         public static GetTruckModel GenerateGetTruckModel(int id = -8)
         {
             return new GetTruckModel()

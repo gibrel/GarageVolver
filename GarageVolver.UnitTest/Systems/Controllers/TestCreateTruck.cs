@@ -18,13 +18,13 @@ namespace GarageVolver.UnitTest.Systems.Controllers
         [Theory]
         [AutoDomainData]
         public async Task CreateTruck_OnSucess_ReturnsStatusCode200Async(
-            [Frozen] Mock<ITruckService> mockTruckService,
-            CreateTruckModel newTruck,
-            GetTruckModel truck)
+            [Frozen] Mock<ITruckService> mockTruckService)
         {
+            var getTruck = TruckFixture.GenerateGetTruckModel();
+            var newTruck = TruckFixture.TranslateTruckBetweenModels<GetTruckModel, CreateTruckModel>(getTruck);
             mockTruckService
                 .Setup(service => service.Add<CreateTruckModel, GetTruckModel, TruckValidator>(newTruck))
-                .ReturnsAsync(truck);
+                .ReturnsAsync(getTruck);
             var sut = new TruckController(mockTruckService.Object);
 
             var result = await sut.Create(newTruck) as ObjectResult;
@@ -35,13 +35,13 @@ namespace GarageVolver.UnitTest.Systems.Controllers
         [Theory]
         [AutoDomainData]
         public async Task CreateTruck_OnSucess_InvokesTruckServiceOnce(
-            [Frozen] Mock<ITruckService> mockTruckService,
-            CreateTruckModel newTruck,
-            GetTruckModel truck)
+            [Frozen] Mock<ITruckService> mockTruckService)
         {
+            var getTruck = TruckFixture.GenerateGetTruckModel();
+            var newTruck = TruckFixture.TranslateTruckBetweenModels<GetTruckModel, CreateTruckModel>(getTruck);
             mockTruckService
                 .Setup(service => service.Add<CreateTruckModel, GetTruckModel, TruckValidator>(newTruck))
-                .ReturnsAsync(truck);
+                .ReturnsAsync(getTruck);
             var sut = new TruckController(mockTruckService.Object);
 
             var result = await sut.Create(newTruck);
@@ -53,13 +53,13 @@ namespace GarageVolver.UnitTest.Systems.Controllers
         [Theory]
         [AutoDomainData]
         public async Task CreateTruck_OnSucess_ReturnTruckModel(
-            [Frozen] Mock<ITruckService> mockTruckService,
-            CreateTruckModel newTruck,
-            GetTruckModel truck)
+            [Frozen] Mock<ITruckService> mockTruckService)
         {
+            var getTruck = TruckFixture.GenerateGetTruckModel();
+            var newTruck = TruckFixture.TranslateTruckBetweenModels<GetTruckModel, CreateTruckModel>(getTruck);
             mockTruckService
                 .Setup(service => service.Add<CreateTruckModel, GetTruckModel, TruckValidator>(newTruck))
-                .ReturnsAsync(truck);
+                .ReturnsAsync(getTruck);
             var sut = new TruckController(mockTruckService.Object);
 
             var result = await sut.Create(newTruck);
@@ -75,10 +75,10 @@ namespace GarageVolver.UnitTest.Systems.Controllers
             [Frozen] Mock<ITruckService> mockTruckService)
         {
             CreateTruckModel? newTruck = null;
-            GetTruckModel? truck = null;
+            GetTruckModel? getTruck = null;
             mockTruckService
                 .Setup(service => service.Add<CreateTruckModel, GetTruckModel, TruckValidator>(newTruck))
-                .ReturnsAsync(truck);
+                .ReturnsAsync(getTruck);
             var sut = new TruckController(mockTruckService.Object);
 
             var result = await sut.Create(newTruck);
@@ -91,14 +91,14 @@ namespace GarageVolver.UnitTest.Systems.Controllers
         [Theory]
         [AutoDomainData]
         public async Task CreateTruck_OnInvalidContent_Return409(
-            [Frozen] Mock<ITruckService> mockTruckService,
-            CreateTruckModel newTruck)
+            [Frozen] Mock<ITruckService> mockTruckService)
         {
+            var newTruck = TruckFixture.GenerateCreateTruckModel();
             newTruck.ModelYear = DateTime.Now.Year - 1;
-            GetTruckModel? truck = null;
+            GetTruckModel? getTruck = null;
             mockTruckService
                 .Setup(service => service.Add<CreateTruckModel, GetTruckModel, TruckValidator>(newTruck))
-                .ReturnsAsync(truck);
+                .ReturnsAsync(getTruck);
             var sut = new TruckController(mockTruckService.Object);
 
             var result = await sut.Create(newTruck);

@@ -18,10 +18,10 @@ namespace GarageVolver.UnitTest.Systems.Controllers
         [Theory]
         [AutoDomainData]
         public async Task UpdateTruck_OnSucess_ReturnsStatusCode200Async(
-            [Frozen] Mock<ITruckService> mockTruckService,
-            UpdateTruckModel toUpdateTruck,
-            GetTruckModel updatedTruck)
+            [Frozen] Mock<ITruckService> mockTruckService)
         {
+            var updatedTruck = TruckFixture.GenerateGetTruckModel();
+            var toUpdateTruck = TruckFixture.TranslateTruckBetweenModels<GetTruckModel, UpdateTruckModel>(updatedTruck);
             mockTruckService
                 .Setup(service =>
                     service.Update<UpdateTruckModel, GetTruckModel, TruckValidator>(toUpdateTruck))
@@ -36,10 +36,10 @@ namespace GarageVolver.UnitTest.Systems.Controllers
         [Theory]
         [AutoDomainData]
         public async Task UpdateTruck_OnSucess_InvokesTruckServiceOnce(
-            [Frozen] Mock<ITruckService> mockTruckService,
-            UpdateTruckModel toUpdateTruck,
-            GetTruckModel updatedTruck)
+            [Frozen] Mock<ITruckService> mockTruckService)
         {
+            var updatedTruck = TruckFixture.GenerateGetTruckModel();
+            var toUpdateTruck = TruckFixture.TranslateTruckBetweenModels<GetTruckModel, UpdateTruckModel>(updatedTruck);
             mockTruckService
                 .Setup(service => service.Update<UpdateTruckModel, GetTruckModel, TruckValidator>(toUpdateTruck))
                 .ReturnsAsync(updatedTruck);
@@ -54,10 +54,10 @@ namespace GarageVolver.UnitTest.Systems.Controllers
         [Theory]
         [AutoDomainData]
         public async Task UpdateTruck_OnSucess_ReturnTruckModel(
-            [Frozen] Mock<ITruckService> mockTruckService,
-            UpdateTruckModel toUpdateTruck,
-            GetTruckModel updatedTruck)
+            [Frozen] Mock<ITruckService> mockTruckService)
         {
+            var updatedTruck = TruckFixture.GenerateGetTruckModel();
+            var toUpdateTruck = TruckFixture.TranslateTruckBetweenModels<GetTruckModel, UpdateTruckModel>(updatedTruck);
             mockTruckService
                 .Setup(service => service.Update<UpdateTruckModel, GetTruckModel, TruckValidator>(toUpdateTruck))
                 .ReturnsAsync(updatedTruck);
@@ -92,9 +92,9 @@ namespace GarageVolver.UnitTest.Systems.Controllers
         [Theory]
         [AutoDomainData]
         public async Task UpdateTruck_OnInvalidContent_Return409(
-            [Frozen] Mock<ITruckService> mockTruckService,
-            UpdateTruckModel toUpdateTruck)
+            [Frozen] Mock<ITruckService> mockTruckService)
         {
+            var toUpdateTruck = TruckFixture.GenerateUpdateTruckModel();
             toUpdateTruck.ModelYear = DateTime.Now.Year - 1;
             GetTruckModel? updatedTruck = null;
             mockTruckService

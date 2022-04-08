@@ -7,6 +7,7 @@ using GarageVolver.UnitTest.Fixtures;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -18,8 +19,9 @@ namespace GarageVolver.UnitTest.Systems.Controllers
         [AutoDomainData]
         public async Task GetTrucks_OnSucess_ReturnsStatusCode200Async(
             [Frozen] Mock<ITruckService> mockTruckService,
-            List<GetTruckModel> trucks)
+            [Range(3,5)] int numberOfTrucksOnList)
         {
+            var trucks = TruckFixture.GenerateListOfTGetruckModels(numberOfTrucksOnList, true);
             mockTruckService
                 .Setup(service => service.GetAll<GetTruckModel>())
                 .ReturnsAsync(trucks);
@@ -34,8 +36,9 @@ namespace GarageVolver.UnitTest.Systems.Controllers
         [AutoDomainData]
         public async Task GetTrucks_OnSucess_InvokesTruckServiceOnce(
             [Frozen] Mock<ITruckService> mockTruckService,
-            List<GetTruckModel> trucks)
+            [Range(3, 5)] int numberOfTrucksOnList)
         {
+            var trucks = TruckFixture.GenerateListOfTGetruckModels(numberOfTrucksOnList, true);
             mockTruckService
                 .Setup(service => service.GetAll<GetTruckModel>())
                 .ReturnsAsync(trucks);
@@ -51,8 +54,9 @@ namespace GarageVolver.UnitTest.Systems.Controllers
         [AutoDomainData]
         public async Task GetTrucks_OnSucess_ReturnListOfTruckModels(
             [Frozen] Mock<ITruckService> mockTruckService,
-            List<GetTruckModel> trucks)
+            [Range(3, 5)] int numberOfTrucksOnList)
         {
+            var trucks = TruckFixture.GenerateListOfTGetruckModels(numberOfTrucksOnList, true);
             mockTruckService
                 .Setup(service => service.GetAll<GetTruckModel>())
                 .ReturnsAsync(trucks);
