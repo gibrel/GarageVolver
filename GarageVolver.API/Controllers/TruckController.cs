@@ -28,6 +28,19 @@ namespace GarageVolver.API.Controllers
         /// <summary>
         /// Endpoint responsible to create new truck.
         /// </summary>
+        /// /// <remarks>
+        /// 
+        ///        modelName must be "FM" or "FH"
+        ///        
+        /// Sample request:
+        ///
+        ///     {
+        ///        "modelName": "FH",
+        ///        "manufacturingYear": 2022,
+        ///        "modelYear": 2023
+        ///     }
+        ///
+        /// </remarks>
         /// <param name="newTruck"><c>CreateTruckModel</c> class object with truck data.</param>
         /// <returns>Created <c>GetTruckModel</c> class object with data of the created truck.</returns>
         [HttpPut("CreateTruck")]
@@ -96,6 +109,20 @@ namespace GarageVolver.API.Controllers
         /// <summary>
         /// Enpoint responsible to update truck with new values.
         /// </summary>
+        /// <remarks>
+        /// 
+        ///        modelName must be "FM" or "FH"
+        ///        
+        /// Sample request:
+        ///
+        ///     {
+        ///        "id": 71,
+        ///        "modelName": "FH",
+        ///        "manufacturingYear": 2022,
+        ///        "modelYear": 2023
+        ///     }
+        ///
+        /// </remarks>
         /// <param name="truckToUpdate"><c>UpdateTruckModel</c> class object with truck data to be updated.</param>
         /// <returns>Updated <c>GetTruckModel</c> class object.</returns>
         [HttpPatch("UpdateTruck")]
