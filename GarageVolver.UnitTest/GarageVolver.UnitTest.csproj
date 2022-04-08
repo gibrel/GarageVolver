@@ -32,9 +32,4 @@
     <ProjectReference Include="..\GarageVolver.Service\GarageVolver.Service.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Helpers\" />
-    <Folder Include="Systems\Repositories\" />
-  </ItemGroup>
-
 </Project>
