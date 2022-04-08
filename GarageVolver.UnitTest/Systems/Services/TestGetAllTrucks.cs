@@ -11,31 +11,25 @@ using Moq;
 using System.Threading.Tasks;
 using Xunit;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace GarageVolver.UnitTest.Systems.Services
 {
     public class TestGetAllTrucks
     {
-        private Mapper ConfigureMapper()
-        {
-            var truckMapProfile = new TruckMapProfile();
-            var configuration = new MapperConfiguration(cfg => cfg.AddProfile(truckMapProfile));
-            return new Mapper(configuration);
-        }
 
         [Theory]
         [AutoDomainData]
         public async Task GetAllTrucks_OnSucess_ReturnsListOfGetTruckModel(
             [Frozen] Mock<ITruckRepository> mockTruckRepository,
-            List<Truck> getListTruckModel)
+            [Range(3,6)] int ammountOfTrucks)
         {
-            IMapper mapper = ConfigureMapper();
             mockTruckRepository
                 .Setup(repo => repo.Select())
-                .ReturnsAsync(getListTruckModel);
+                .ReturnsAsync(TruckFixture.GenerateListOfTrucks(ammountOfTrucks));
             var sut = new TruckService(
                 mockTruckRepository.Object,
-                mapper);
+                TruckFixture._mapper);
 
             var result = await sut.GetAll<GetTruckModel>();
 

@@ -1,12 +1,10 @@
 ﻿using AutoFixture.Xunit2;
-using AutoMapper;
 using FluentAssertions;
-using GarageVolver.API.Configurations;
-using GarageVolver.Domain.Entities;
 using GarageVolver.Domain.Interfaces;
 using GarageVolver.Service.Services;
 using GarageVolver.UnitTest.Fixtures;
 using Moq;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -14,28 +12,21 @@ namespace GarageVolver.UnitTest.Systems.Services
 {
     public class TestDeleteTruck
     {
-        private Mapper ConfigureMapper()
-        {
-            var truckMapProfile = new TruckMapProfile();
-            var configuration = new MapperConfiguration(cfg => cfg.AddProfile(truckMapProfile));
-            return new Mapper(configuration);
-        }
 
         [Theory]
         [AutoDomainData]
         public async Task DeleteTruck_OnSucess_ReturnsTrue(
             [Frozen] Mock<ITruckRepository> mockTruckRepository,
-            Truck toBeDeletedTruck)
+            [Range(1,9999)] int toBeDeletedTruckId)
         {
-            IMapper mapper = ConfigureMapper();
             mockTruckRepository
-                .Setup(repo => repo.Delete(toBeDeletedTruck.Id))
+                .Setup(repo => repo.Delete(toBeDeletedTruckId))
                 .ReturnsAsync(true);
             var sut = new TruckService(
                 mockTruckRepository.Object,
-                mapper);
+                TruckFixture._mapper);
 
-            var result = await sut.Delete(toBeDeletedTruck.Id);
+            var result = await sut.Delete(toBeDeletedTruckId);
 
             result.Should().BeTrue();
         }
@@ -43,19 +34,16 @@ namespace GarageVolver.UnitTest.Systems.Services
         [Theory]
         [AutoDomainData]
         public async Task DeleteTruck_Failure_ReturnsFalse(
-            [Frozen] Mock<ITruckRepository> mockTruckRepository,
-            Truck toBeDeletedTruck)
+            [Frozen] Mock<ITruckRepository> mockTruckRepository)
         {
-            toBeDeletedTruck.Id = 0;
-            IMapper mapper = ConfigureMapper();
             mockTruckRepository
-                .Setup(repo => repo.Delete(toBeDeletedTruck.Id))
+                .Setup(repo => repo.Delete(0))
                 .ReturnsAsync(false);
             var sut = new TruckService(
                 mockTruckRepository.Object,
-                mapper);
+                TruckFixture._mapper);
 
-            var result = await sut.Delete(toBeDeletedTruck.Id);
+            var result = await sut.Delete(0);
 
             result.Should().BeFalse();
         }

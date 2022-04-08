@@ -1,38 +1,25 @@
 ﻿using AutoFixture.Xunit2;
-using AutoMapper;
 using FluentAssertions;
 using GarageVolver.API.Models;
-using GarageVolver.API.Configurations;
 using GarageVolver.Domain.Entities;
-using GarageVolver.Domain.Helpers;
 using GarageVolver.Domain.Interfaces;
 using GarageVolver.Service.Services;
-using GarageVolver.Service.Validators;
 using GarageVolver.UnitTest.Fixtures;
 using Moq;
-using System;
-using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Xunit;
+using System.ComponentModel.DataAnnotations;
 
 namespace GarageVolver.UnitTest.Systems.Services
 {
     public class TestGetByIdTruck
     {
-        private Mapper ConfigureMapper()
-        {
-            var truckMapProfile = new TruckMapProfile();
-            var configuration = new MapperConfiguration(cfg => cfg.AddProfile(truckMapProfile));
-            return new Mapper(configuration);
-        }
-
         [Theory]
         [AutoDomainData]
         public async Task GetTruckById_OnSucess_ReturnsGetTruckModel(
             [Frozen] Mock<ITruckRepository> mockTruckRepository,
             Truck truck)
         {
-            IMapper mapper = ConfigureMapper();
             GetTruckModel selectedTruck = new()
             {
                 ModelName = truck.Model.Name,
@@ -44,12 +31,30 @@ namespace GarageVolver.UnitTest.Systems.Services
                 .ReturnsAsync(truck);
             var sut = new TruckService(
                 mockTruckRepository.Object,
-                mapper);
+                TruckFixture._mapper);
 
             var result = await sut.GetById<GetTruckModel>(truck.Id);
 
             result.Should().BeOfType<GetTruckModel>();
         }
 
+        [Theory]
+        [AutoDomainData]
+        public async Task GetTruckById_OnSucess_TruckIdMustBeTheSame(
+            [Frozen] Mock<ITruckRepository> mockTruckRepository,
+            [Range(1, 9999)] int truckId)
+        {
+            var selectedTruck = TruckFixture.GenerateTruck(truckId);
+            mockTruckRepository
+                .Setup(repo => repo.Select(truckId))
+                .ReturnsAsync(selectedTruck);
+            var sut = new TruckService(
+                mockTruckRepository.Object,
+                TruckFixture._mapper);
+
+            var result = await sut.GetById<GetTruckModel>(truckId);
+
+            result.Id.Should().Be(truckId);
+        }
     }
 }
