@@ -17,6 +17,9 @@ namespace GarageVolver.API.Configurations
                 .ForMember(dest => dest.Model, opt => opt.ConvertUsing(new StringToTruckModelConverter(), src => src.ModelName));
             CreateMap<Truck, GetTruckModel>()
                 .ForMember(dest => dest.ModelName, opt => opt.ConvertUsing(new TruckModelToStringConverter(), src => src.Model));
+            CreateMap<GetTruckModel, UpdateTruckModel>();
+            CreateMap<GetTruckModel, CreateTruckModel>();
+            CreateMap<UpdateTruckModel, GetTruckModel>();
         }
     }
 
