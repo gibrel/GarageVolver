@@ -44,7 +44,7 @@ namespace GarageVolver.UnitTest.Systems.Services
             };
             UpdateTruckModel updateTruck = new()
             {
-                Model = truck.Model.Name,
+                ModelName = truck.Model.Name,
                 ModelYear = truck.ModelYear,
                 ManufacturingYear = truck.ManufacturingYear
             };

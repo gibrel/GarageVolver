@@ -35,7 +35,7 @@ namespace GarageVolver.UnitTest.Systems.Services
             IMapper mapper = ConfigureMapper();
             GetTruckModel selectedTruck = new()
             {
-                Model = truck.Model.Name,
+                ModelName = truck.Model.Name,
                 ModelYear = truck.ModelYear,
                 ManufacturingYear = truck.ManufacturingYear
             };

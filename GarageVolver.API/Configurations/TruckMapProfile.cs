@@ -10,13 +10,13 @@ namespace GarageVolver.API.Configurations
         public TruckMapProfile()
         {
             CreateMap<CreateTruckModel, Truck>()
-                .ForMember(dest => dest.Model, opt => opt.ConvertUsing(new StringToTruckModelConverter(), src => src.Model));
+                .ForMember(dest => dest.Model, opt => opt.ConvertUsing(new StringToTruckModelConverter(), src => src.ModelName));
             CreateMap<UpdateTruckModel, Truck>()
-                .ForMember(dest => dest.Model, opt => opt.ConvertUsing(new StringToTruckModelConverter(), src => src.Model));
+                .ForMember(dest => dest.Model, opt => opt.ConvertUsing(new StringToTruckModelConverter(), src => src.ModelName));
             CreateMap<GetTruckModel, Truck>()
-                .ForMember(dest => dest.Model, opt => opt.ConvertUsing(new StringToTruckModelConverter(), src => src.Model));
+                .ForMember(dest => dest.Model, opt => opt.ConvertUsing(new StringToTruckModelConverter(), src => src.ModelName));
             CreateMap<Truck, GetTruckModel>()
-                .ForMember(dest => dest.Model, opt => opt.ConvertUsing(new TruckModelToStringConverter(), src => src.Model));
+                .ForMember(dest => dest.ModelName, opt => opt.ConvertUsing(new TruckModelToStringConverter(), src => src.Model));
         }
     }
 

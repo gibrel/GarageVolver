@@ -2,7 +2,7 @@
 {
     public class UpdateTruckModel
     {
-        public string Model { get; set; }
+        public string ModelName { get; set; }
         public int ManufacturingYear { get; set; }
         public int ModelYear { get; set; }
     }
