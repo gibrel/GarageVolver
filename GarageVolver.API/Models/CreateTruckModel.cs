@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using GarageVolver.Domain.Entities;
+using GarageVolver.Domain.Helpers;
+using System.ComponentModel.DataAnnotations;
 
 namespace GarageVolver.API.Models
 {
@@ -20,6 +22,22 @@ namespace GarageVolver.API.Models
             ModelName = modelName;
             ManufacturingYear = manufacturingYear;
             ModelYear = modelYear;
+        }
+
+        public static implicit operator CreateTruckModel(Truck truck)
+        {
+            return new(
+                modelName: truck.Model.Name,
+                manufacturingYear: truck.ManufacturingYear,
+                modelYear: truck.ModelYear);
+        }
+
+        public static implicit operator Truck(CreateTruckModel createTruckModel)
+        {
+            return new (
+                model: Enumeration.GetByName<TruckModel>(createTruckModel.ModelName),
+                manufacturingYear: createTruckModel.ManufacturingYear,
+                modelYear: createTruckModel.ModelYear);
         }
     }
 }
