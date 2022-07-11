@@ -47,9 +47,9 @@ namespace GarageVolver.UnitTest.Systems.Repositories
             await sut.Insert(truck);
 
             truck = TruckFixture.MakeChanges(truck);
-            var result = await sut.Update(truck);
+            await sut.Update(truck);
 
-            mockSQLiteContext.Verify(m => m.SaveChanges(), Times.Exactly(2));
+            mockSQLiteContext.Verify(m => m.SaveChanges(), Times.Exactly(1));
         }
 
         [Theory]
@@ -66,7 +66,7 @@ namespace GarageVolver.UnitTest.Systems.Repositories
             await sut.Insert(truck);
 
             truck = TruckFixture.MakeChanges(truck);
-            var result = await sut.Update(truck);
+            await sut.Update(truck);
 
             mockSQLiteContext.Verify(m => m.Set<Truck>(), Times.Once());
         }
