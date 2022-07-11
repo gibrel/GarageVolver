@@ -37,7 +37,7 @@ if (app.Environment.IsDevelopment())
 
 using (var scope = app.Services.CreateScope())
 using (var context = scope.ServiceProvider.GetService<SQLiteContext>())
-    context.Database.Migrate();
+    context?.Database.Migrate();
 
 app.UseHttpsRedirection();
 
