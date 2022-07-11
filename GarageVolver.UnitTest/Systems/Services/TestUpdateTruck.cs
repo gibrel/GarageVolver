@@ -1,8 +1,8 @@
 ﻿using AutoFixture.Xunit2;
 using AutoMapper;
 using FluentAssertions;
-using GarageVolver.API.Models;
 using GarageVolver.API.Configurations;
+using GarageVolver.API.Models;
 using GarageVolver.Domain.Entities;
 using GarageVolver.Domain.Helpers;
 using GarageVolver.Domain.Interfaces;

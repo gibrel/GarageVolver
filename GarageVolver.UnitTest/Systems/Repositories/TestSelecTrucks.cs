@@ -1,17 +1,16 @@
 ﻿using AutoFixture.Xunit2;
 using FluentAssertions;
+using GarageVolver.Data.Context;
+using GarageVolver.Data.Repositories;
 using GarageVolver.Domain.Entities;
 using GarageVolver.UnitTest.Fixtures;
+using Microsoft.EntityFrameworkCore;
 using Moq;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Xunit;
-using GarageVolver.Data.Repositories;
-using GarageVolver.Data.Context;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using GarageVolver.UnitTest.Helpers;
-using System.ComponentModel.DataAnnotations;
-using System;
 
 namespace GarageVolver.UnitTest.Systems.Repositories
 {
@@ -22,7 +21,7 @@ namespace GarageVolver.UnitTest.Systems.Repositories
         public async Task SelectTrucks_OnRun_InvokeSaveChanges(
             [Frozen] Mock<DbSet<Truck>> mockTruckSet,
             [Frozen] Mock<SQLiteContext> mockSQLiteContext,
-            [Range(3,6)] int numberOfTrucks)
+            [Range(3, 6)] int numberOfTrucks)
         {
             mockSQLiteContext
                 .Setup(context => context.Trucks)
@@ -38,7 +37,7 @@ namespace GarageVolver.UnitTest.Systems.Repositories
             }
             await sut.Select();
 
-            mockSQLiteContext.Verify(m => m.Set<Truck>(), Times.AtMost(numberOfTrucks+1));
+            mockSQLiteContext.Verify(m => m.Set<Truck>(), Times.AtMost(numberOfTrucks + 1));
         }
 
         [Theory]

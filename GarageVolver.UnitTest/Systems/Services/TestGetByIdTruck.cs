@@ -1,17 +1,13 @@
 ﻿using AutoFixture.Xunit2;
 using AutoMapper;
 using FluentAssertions;
-using GarageVolver.API.Models;
 using GarageVolver.API.Configurations;
+using GarageVolver.API.Models;
 using GarageVolver.Domain.Entities;
-using GarageVolver.Domain.Helpers;
 using GarageVolver.Domain.Interfaces;
 using GarageVolver.Service.Services;
-using GarageVolver.Service.Validators;
 using GarageVolver.UnitTest.Fixtures;
 using Moq;
-using System;
-using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Xunit;
 

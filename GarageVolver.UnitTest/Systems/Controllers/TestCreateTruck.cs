@@ -29,7 +29,7 @@ namespace GarageVolver.UnitTest.Systems.Controllers
 
             var result = await sut.Create(newTruck) as ObjectResult;
 
-            result.StatusCode.Should().Be(200);
+            result?.StatusCode.Should().Be(200);
         }
 
         [Theory]
@@ -44,7 +44,7 @@ namespace GarageVolver.UnitTest.Systems.Controllers
                 .ReturnsAsync(truck);
             var sut = new TruckController(mockTruckService.Object);
 
-            var result = await sut.Create(newTruck);
+            await sut.Create(newTruck);
 
             mockTruckService.Verify(
                 service => service.Add<CreateTruckModel, GetTruckModel, TruckValidator>(newTruck), Times.Once());
@@ -66,7 +66,7 @@ namespace GarageVolver.UnitTest.Systems.Controllers
 
             result.Should().BeOfType<OkObjectResult>();
             var objectResult = result as ObjectResult;
-            objectResult.Value.Should().BeOfType<GetTruckModel>();
+            objectResult?.Value.Should().BeOfType<GetTruckModel>();
         }
 
         [Theory]
@@ -85,7 +85,7 @@ namespace GarageVolver.UnitTest.Systems.Controllers
 
             result.Should().BeOfType<BadRequestObjectResult>();
             var objectResult = result as BadRequestObjectResult;
-            objectResult.StatusCode.Should().Be(400);
+            objectResult?.StatusCode.Should().Be(400);
         }
 
         [Theory]
@@ -105,7 +105,7 @@ namespace GarageVolver.UnitTest.Systems.Controllers
 
             result.Should().BeOfType<ConflictObjectResult>();
             var objectResult = result as ConflictObjectResult;
-            objectResult.StatusCode.Should().Be(409);
+            objectResult?.StatusCode.Should().Be(409);
         }
     }
 }

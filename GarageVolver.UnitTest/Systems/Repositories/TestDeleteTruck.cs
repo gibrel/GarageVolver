@@ -1,12 +1,12 @@
 ﻿using AutoFixture.Xunit2;
+using GarageVolver.Data.Context;
+using GarageVolver.Data.Repositories;
 using GarageVolver.Domain.Entities;
 using GarageVolver.UnitTest.Fixtures;
+using Microsoft.EntityFrameworkCore;
 using Moq;
 using System.Threading.Tasks;
 using Xunit;
-using GarageVolver.Data.Repositories;
-using GarageVolver.Data.Context;
-using Microsoft.EntityFrameworkCore;
 
 namespace GarageVolver.UnitTest.Systems.Repositories
 {

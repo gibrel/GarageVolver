@@ -50,7 +50,7 @@ namespace GarageVolver.UnitTest.Systems.Validators
         public void Should_have_error_when_ManufacturingYear_is_not_current_year(
             [Range(0, 1)] int truckModelId,
             [Range(0, 1)] int truckModelYear,
-            [Range(1,9999)] int truckManufaturingYear)
+            [Range(1, 9999)] int truckManufaturingYear)
         {
             if (truckManufaturingYear == DateTime.Now.Year) truckManufaturingYear++;
             truckModelYear += DateTime.Now.Year;

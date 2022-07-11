@@ -27,7 +27,7 @@ namespace GarageVolver.UnitTest.Systems.Controllers
 
             var result = await sut.Get() as ObjectResult;
 
-            result.StatusCode.Should().Be(200);
+            result?.StatusCode.Should().Be(200);
         }
 
         [Theory]
@@ -41,7 +41,7 @@ namespace GarageVolver.UnitTest.Systems.Controllers
                 .ReturnsAsync(trucks);
             var sut = new TruckController(mockTruckService.Object);
 
-            var result = await sut.Get();
+            await sut.Get();
 
             mockTruckService.Verify(
                 service => service.GetAll<GetTruckModel>(), Times.Once());
@@ -62,7 +62,7 @@ namespace GarageVolver.UnitTest.Systems.Controllers
 
             result.Should().BeOfType<OkObjectResult>();
             var objectResult = result as ObjectResult;
-            objectResult.Value.Should().BeOfType<List<GetTruckModel>>();
+            objectResult?.Value.Should().BeOfType<List<GetTruckModel>>();
         }
 
         [Theory]
@@ -79,7 +79,7 @@ namespace GarageVolver.UnitTest.Systems.Controllers
 
             result.Should().BeOfType<NotFoundResult>();
             var objectResult = result as NotFoundResult;
-            objectResult.StatusCode.Should().Be(404);
+            objectResult?.StatusCode.Should().Be(404);
         }
     }
 }

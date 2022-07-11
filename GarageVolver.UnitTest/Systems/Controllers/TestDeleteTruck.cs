@@ -25,7 +25,7 @@ namespace GarageVolver.UnitTest.Systems.Controllers
 
             var result = await sut.Delete(truckId) as ObjectResult;
 
-            result.StatusCode.Should().Be(200);
+            result?.StatusCode.Should().Be(200);
         }
 
         [Theory]
@@ -39,7 +39,7 @@ namespace GarageVolver.UnitTest.Systems.Controllers
                 .ReturnsAsync(true);
             var sut = new TruckController(mockTruckService.Object);
 
-            var result = await sut.Delete(truckId);
+            await sut.Delete(truckId);
 
             mockTruckService.Verify(
                 service => service.Delete(truckId), Times.Once());
@@ -61,7 +61,7 @@ namespace GarageVolver.UnitTest.Systems.Controllers
 
             result.Should().BeOfType<BadRequestObjectResult>();
             var objectResult = result as BadRequestObjectResult;
-            objectResult.StatusCode.Should().Be(400);
+            objectResult?.StatusCode.Should().Be(400);
         }
 
         [Theory]
@@ -79,7 +79,7 @@ namespace GarageVolver.UnitTest.Systems.Controllers
 
             result.Should().BeOfType<NotFoundObjectResult>();
             var objectResult = result as NotFoundObjectResult;
-            objectResult.StatusCode.Should().Be(404);
+            objectResult?.StatusCode.Should().Be(404);
         }
     }
 }
