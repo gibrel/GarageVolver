@@ -74,14 +74,20 @@ namespace GarageVolver.UnitTest.Systems.Controllers
         public async Task CreateTruck_OnNullInput_Return400(
             [Frozen] Mock<ITruckService> mockTruckService)
         {
-            CreateTruckModel? newTruck = null;
-            GetTruckModel? truck = null;
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
+            CreateTruckModel newTruck = null;
+            GetTruckModel truck = null;
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
+#pragma warning disable CS8604 // Possible null reference argument.
             mockTruckService
                 .Setup(service => service.Add<CreateTruckModel, GetTruckModel, TruckValidator>(newTruck))
                 .ReturnsAsync(truck);
+#pragma warning restore CS8604 // Possible null reference argument.
             var sut = new TruckController(mockTruckService.Object);
 
+#pragma warning disable CS8604 // Possible null reference argument.
             var result = await sut.Create(newTruck);
+#pragma warning restore CS8604 // Possible null reference argument.
 
             result.Should().BeOfType<BadRequestObjectResult>();
             var objectResult = result as BadRequestObjectResult;

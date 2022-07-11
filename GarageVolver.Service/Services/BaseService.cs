@@ -17,7 +17,7 @@ namespace GarageVolver.Service.Services
             _mapper = mapper;
         }
 
-        public virtual async Task<TOutputModel> Add<TInputModel, TOutputModel, TValidator>(TInputModel inputModel)
+        public virtual async Task<TOutputModel?> Add<TInputModel, TOutputModel, TValidator>(TInputModel inputModel)
             where TValidator : AbstractValidator<TEntity>
             where TInputModel : class
             where TOutputModel : class
@@ -41,7 +41,7 @@ namespace GarageVolver.Service.Services
             return outputModels;
         }
 
-        public virtual async Task<TOutputModel> GetById<TOutputModel>(int id) where TOutputModel : class
+        public virtual async Task<TOutputModel?> GetById<TOutputModel>(int id) where TOutputModel : class
         {
             var entity = await _baseRepository.Select(id);
 
@@ -50,7 +50,7 @@ namespace GarageVolver.Service.Services
             return outputModel;
         }
 
-        public virtual async Task<TOutputModel> Update<TInputModel, TOutputModel, TValidator>(TInputModel inputModel)
+        public virtual async Task<TOutputModel?> Update<TInputModel, TOutputModel, TValidator>(TInputModel inputModel)
             where TInputModel : class
             where TOutputModel : class
             where TValidator : AbstractValidator<TEntity>
