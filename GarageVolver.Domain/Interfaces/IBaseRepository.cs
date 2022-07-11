@@ -8,6 +8,6 @@ namespace GarageVolver.Domain.Interfaces
         Task<bool> Update(TEntity obj);
         Task<bool> Delete(int id);
         Task<IList<TEntity>> Select();
-        Task<TEntity> Select(int id);
+        Task<TEntity?> Select(int id);
     }
 }
