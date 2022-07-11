@@ -1,6 +1,7 @@
 ﻿using GarageVolver.Data.Context;
 using GarageVolver.Domain.Entities;
 using GarageVolver.Domain.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace GarageVolver.Data.Repositories
 {
@@ -17,7 +18,7 @@ namespace GarageVolver.Data.Repositories
         {
             try
             {
-                _sQLiteContext.Set<TEntity>().Add(obj);
+                await _sQLiteContext.Set<TEntity>().AddAsync(obj);
                 _sQLiteContext.SaveChanges();
             }
             catch (Exception ex)
@@ -31,20 +32,19 @@ namespace GarageVolver.Data.Repositories
 
         public virtual async Task<IList<TEntity>> Select()
         {
-            var entities = _sQLiteContext.Set<TEntity>().ToList();
+            var entities = await _sQLiteContext.Set<TEntity>().ToListAsync();
             return entities;
         }
 
-        public virtual async Task<TEntity> Select(int id)
-            => _sQLiteContext.Set<TEntity>().SingleOrDefault(x => x.Id == id);
+        public virtual async Task<TEntity?> Select(int id)
+            => await _sQLiteContext.Set<TEntity>().SingleOrDefaultAsync(x => x.Id == id);
 
         public virtual async Task<bool> Update(TEntity obj)
         {
             try
             {
-                _sQLiteContext.Entry(obj).State =
-                    Microsoft.EntityFrameworkCore.EntityState.Modified;
-                _sQLiteContext.SaveChanges();
+                _sQLiteContext.Entry(obj).State = EntityState.Modified;
+                await _sQLiteContext.SaveChangesAsync();
             }
             catch (Exception ex)
             {
@@ -59,7 +59,10 @@ namespace GarageVolver.Data.Repositories
         {
             try
             {
-                _sQLiteContext.Set<TEntity>().Remove(await Select(id));
+                var entity = await Select(id);
+                if(entity == null)
+                    return false;
+                _sQLiteContext.Set<TEntity>().Remove(entity);
                 _sQLiteContext.SaveChanges();
             }
             catch (Exception ex)
