@@ -81,7 +81,7 @@ namespace GarageVolver.UnitTest.Systems.Controllers
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
 #pragma warning disable CS8604 // Possible null reference argument.
             mockTruckService
-                .Setup(service => service.Update<UpdateTruckModel, GetTruckModel?, TruckValidator>(toUpdateTruck))
+                .Setup(service => service.Update<UpdateTruckModel, GetTruckModel, TruckValidator>(toUpdateTruck))
                 .ReturnsAsync(updatedTruck);
 #pragma warning restore CS8604 // Possible null reference argument.
             var sut = new TruckController(mockTruckService.Object);
