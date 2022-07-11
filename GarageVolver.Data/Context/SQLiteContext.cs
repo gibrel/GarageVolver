@@ -14,12 +14,11 @@ namespace GarageVolver.Data.Context
         {
             _configuration = configuration.Value;
         }
-        public virtual DbSet<Truck> Trucks { get; }
+        public virtual DbSet<Truck>? Trucks { get; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string filename = _configuration.Filename;
-            filename ??= "TestGarageVolver";
+            string filename = _configuration.Filename ?? "TestGarageVolver";
 
             optionsBuilder.UseSqlite($"Filename={filename}.db", opt =>
             {
