@@ -60,7 +60,7 @@ namespace GarageVolver.Data.Repositories
             try
             {
                 var entity = await Select(id);
-                if(entity == null)
+                if (entity == null)
                     return false;
                 _sQLiteContext.Set<TEntity>().Remove(entity);
                 _sQLiteContext.SaveChanges();

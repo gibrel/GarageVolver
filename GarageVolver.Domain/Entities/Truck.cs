@@ -12,7 +12,7 @@ namespace GarageVolver.Domain.Entities
         {
             Model = model;
             ManufacturingYear = manufacturingYear;
-            ModelYear = modelYear == 0 ? DateTime.Now.Year : modelYear;                
+            ModelYear = modelYear == 0 ? DateTime.Now.Year : modelYear;
         }
     }
 
