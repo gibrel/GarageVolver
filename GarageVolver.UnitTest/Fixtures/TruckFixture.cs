@@ -11,12 +11,12 @@ namespace GarageVolver.UnitTest.Fixtures
 
         public static Truck GenerateTruck()
         {
-            return new Truck()
+            return new Truck(
+                model: TruckModelHelper.RandomTruckModel(),
+                manufacturingYear: DateTime.Now.Year,
+                modelYear: _random.Next(2) + DateTime.Now.Year)
             {
-                Id = 0,
-                Model = TruckModelHelper.RandomTruckModel(),
-                ManufacturingYear = DateTime.Now.Year,
-                ModelYear = _random.Next(2) + DateTime.Now.Year,
+                Id = 0
             };
         }
 

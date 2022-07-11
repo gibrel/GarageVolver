@@ -19,7 +19,7 @@ namespace GarageVolver.UnitTest.Systems.Services
 {
     public class TestAddTruck
     {
-        private Mapper ConfigureMapper()
+        private static Mapper ConfigureMapper()
         {
             var truckMapProfile = new TruckMapProfile();
             var configuration = new MapperConfiguration(cfg => cfg.AddProfile(truckMapProfile));
@@ -35,18 +35,16 @@ namespace GarageVolver.UnitTest.Systems.Services
         {
             IMapper mapper = ConfigureMapper();
             truckModelYear += DateTime.Now.Year;
-            CreateTruckModel newTruck = new()
+            CreateTruckModel newTruck = new(
+                modelName: Enumeration.GetById<TruckModel>(truckModelId).Name,
+                modelYear: truckModelYear,
+                manufacturingYear: DateTime.Now.Year);
+            Truck insertTruck = new(
+                model: Enumeration.GetByName<TruckModel>(newTruck.ModelName),
+                modelYear: newTruck.ModelYear,
+                manufacturingYear: newTruck.ManufacturingYear)
             {
-                ModelName = Enumeration.GetById<TruckModel>(truckModelId).Name,
-                ModelYear = truckModelYear,
-                ManufacturingYear = DateTime.Now.Year
-            };
-            Truck insertTruck = new()
-            {
-                Id = 0,
-                Model = Enumeration.GetByName<TruckModel>(newTruck.ModelName),
-                ManufacturingYear = newTruck.ManufacturingYear,
-                ModelYear = newTruck.ModelYear,
+                Id = 0
             };
             mockTruckRepository
                 .Setup(repo => repo.Insert(insertTruck))

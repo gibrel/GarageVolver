@@ -14,7 +14,7 @@ namespace GarageVolver.UnitTest.Systems.Services
 {
     public class TestDeleteTruck
     {
-        private Mapper ConfigureMapper()
+        private static  Mapper ConfigureMapper()
         {
             var truckMapProfile = new TruckMapProfile();
             var configuration = new MapperConfiguration(cfg => cfg.AddProfile(truckMapProfile));

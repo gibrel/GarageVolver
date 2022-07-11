@@ -16,12 +16,13 @@ namespace GarageVolver.UnitTest.Systems.Validators
         public void Should_have_error_when_ModelYear_is_less_than_current_year(
             [Range(0, 1)] int truckModelId)
         {
-            var model = new Truck
+            var model = new Truck(
+                model: Enumeration.GetById<TruckModel>(truckModelId),
+                modelYear: DateTime.Now.Year - 1, // error
+                manufacturingYear: DateTime.Now.Year
+                )
             {
                 Id = 0,
-                Model = Enumeration.GetById<TruckModel>(truckModelId),
-                ModelYear = DateTime.Now.Year - 1, // error
-                ManufacturingYear = DateTime.Now.Year,
             };
             var validator = new TruckValidator();
             var result = validator.TestValidate(model);
@@ -33,12 +34,13 @@ namespace GarageVolver.UnitTest.Systems.Validators
         public void Should_have_error_when_ModelYear_is_more_than_next_year(
             [Range(0, 1)] int truckModelId)
         {
-            var model = new Truck
+            var model = new Truck(
+                model: Enumeration.GetById<TruckModel>(truckModelId),
+                modelYear: DateTime.Now.Year + 2, // error
+                manufacturingYear: DateTime.Now.Year
+                )
             {
                 Id = 0,
-                Model = Enumeration.GetById<TruckModel>(truckModelId),
-                ModelYear = DateTime.Now.Year + 2, // error
-                ManufacturingYear = DateTime.Now.Year,
             };
             var validator = new TruckValidator();
             var result = validator.TestValidate(model);
@@ -54,12 +56,13 @@ namespace GarageVolver.UnitTest.Systems.Validators
         {
             if (truckManufaturingYear == DateTime.Now.Year) truckManufaturingYear++;
             truckModelYear += DateTime.Now.Year;
-            var model = new Truck
+            var model = new Truck(
+                model: Enumeration.GetById<TruckModel>(truckModelId),
+                modelYear: truckModelYear,
+                manufacturingYear: truckManufaturingYear // error
+                )
             {
                 Id = 0,
-                Model = Enumeration.GetById<TruckModel>(truckModelId),
-                ModelYear = truckModelYear,
-                ManufacturingYear = truckManufaturingYear, // error
             };
             var validator = new TruckValidator();
             var result = validator.TestValidate(model);
@@ -72,21 +75,22 @@ namespace GarageVolver.UnitTest.Systems.Validators
             [Range(0, 1)] int truckModelYear)
         {
             truckModelYear += DateTime.Now.Year;
-            var model = new Truck
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
+            var model = new Truck(
+                model: null,
+                modelYear: truckModelYear,
+                manufacturingYear: DateTime.Now.Year
+                )
             {
                 Id = 0,
-                Model = { },
-                ModelYear = truckModelYear,
-                ManufacturingYear = DateTime.Now.Year,
             };
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
             var validator = new TruckValidator();
             var result = validator.TestValidate(model);
             result.ShouldHaveValidationErrorFor(truck => truck.Model);
         }
     }
 }
-
-// TODO: Study for future use
 
 // Mapping testing
 // https://docs.automapper.org/en/stable/Getting-started.html#how-do-i-test-my-mappings

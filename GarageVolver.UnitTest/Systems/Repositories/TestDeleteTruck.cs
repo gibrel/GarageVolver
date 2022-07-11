@@ -25,7 +25,7 @@ namespace GarageVolver.UnitTest.Systems.Repositories
             var truck = TruckFixture.GenerateTruck();
 
             await sut.Insert(truck);
-            var result = await sut.Delete(truck.Id);
+            await sut.Delete(truck.Id);
 
             mockSQLiteContext.Verify(m => m.SaveChanges(), Times.Exactly(2));
         }
@@ -43,7 +43,7 @@ namespace GarageVolver.UnitTest.Systems.Repositories
             var truck = TruckFixture.GenerateTruck();
 
             await sut.Insert(truck);
-            var result = await sut.Delete(truck.Id);
+            await sut.Delete(truck.Id);
 
             mockSQLiteContext.Verify(m => m.Set<Truck>(), Times.Exactly(3));
         }

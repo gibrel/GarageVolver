@@ -15,7 +15,7 @@ namespace GarageVolver.UnitTest.Systems.Services
 {
     public class TestGetByIdTruck
     {
-        private Mapper ConfigureMapper()
+        private static Mapper ConfigureMapper()
         {
             var truckMapProfile = new TruckMapProfile();
             var configuration = new MapperConfiguration(cfg => cfg.AddProfile(truckMapProfile));
@@ -29,12 +29,6 @@ namespace GarageVolver.UnitTest.Systems.Services
             Truck truck)
         {
             IMapper mapper = ConfigureMapper();
-            GetTruckModel selectedTruck = new()
-            {
-                ModelName = truck.Model.Name,
-                ModelYear = truck.ModelYear,
-                ManufacturingYear = truck.ManufacturingYear
-            };
             mockTruckRepository
                 .Setup(repo => repo.Select(truck.Id))
                 .ReturnsAsync(truck);
