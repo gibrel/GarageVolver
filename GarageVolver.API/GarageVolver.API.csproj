@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <AdditionalFiles Include="..\.sonarlint\neurology-truce7-dreamy-educator-clubhouse-virtual-tried-elaborate-unfrosted-crystal\CSharp\SonarLint.xml" Link="SonarLint.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="11.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.3" />
@@ -38,6 +42,7 @@
   <PropertyGroup>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);1591</NoWarn>
+    <CodeAnalysisRuleSet>..\.sonarlint\neurology-truce7-dreamy-educator-clubhouse-virtual-tried-elaborate-unfrosted-crystalcsharp.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
 </Project>
