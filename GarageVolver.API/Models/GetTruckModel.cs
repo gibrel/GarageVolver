@@ -14,9 +14,17 @@ namespace GarageVolver.API.Models
         public string ModelName { get; set; }
 
         [Required]
-        public int ManufacturingYear { get; set; } = DateTime.Now.Year;
+        public int ManufacturingYear { get; set; }
 
         [Required]
         public int ModelYear { get; set; }
+
+        public GetTruckModel(int id, string modelName, int manufacturingYear, int modelYear)
+        {
+            Id = id;
+            ModelName = modelName;
+            ManufacturingYear = manufacturingYear;
+            ModelYear = modelYear;
+        }
     }
 }

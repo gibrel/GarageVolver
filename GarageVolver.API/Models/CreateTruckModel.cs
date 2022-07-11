@@ -14,5 +14,12 @@ namespace GarageVolver.API.Models
 
         [Required]
         public int ModelYear { get; set; }
+
+        public CreateTruckModel(string modelName, int manufacturingYear, int modelYear)
+        {
+            ModelName = modelName;
+            ManufacturingYear = manufacturingYear;
+            ModelYear = modelYear;
+        }
     }
 }
