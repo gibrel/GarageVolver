@@ -19,7 +19,7 @@ namespace GarageVolver.Domain.Helpers
                      .Select(f => f.GetValue(null))
                      .Cast<T>();
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is not Enumeration otherValue)
             {
@@ -32,7 +32,11 @@ namespace GarageVolver.Domain.Helpers
             return typeMatches && valueMatches;
         }
 
-        public int CompareTo(object other) => Id.CompareTo(((Enumeration)other).Id);
+        public int CompareTo(object? obj)
+        {
+            Enumeration? enumeration = obj as Enumeration;
+            return Id.CompareTo(enumeration?.Id);
+        }
 
         public static T GetByName<T>(string name) where T : Enumeration
         {
@@ -42,6 +46,46 @@ namespace GarageVolver.Domain.Helpers
         public static T GetById<T>(int id) where T : Enumeration
         {
             return GetAll<T>().First(e => e.Id == id);
+        }
+
+        public override int GetHashCode()
+        {
+            throw new NotImplementedException();
+        }
+
+        public static bool operator ==(Enumeration left, Enumeration right)
+        {
+            if (left is null)
+            {
+                return right is null;
+            }
+
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(Enumeration left, Enumeration right)
+        {
+            return !(left == right);
+        }
+
+        public static bool operator <(Enumeration left, Enumeration right)
+        {
+            return left is null ? right is not null : left.CompareTo(right) < 0;
+        }
+
+        public static bool operator <=(Enumeration left, Enumeration right)
+        {
+            return left is null || left.CompareTo(right) <= 0;
+        }
+
+        public static bool operator >(Enumeration left, Enumeration right)
+        {
+            return left is not null && left.CompareTo(right) > 0;
+        }
+
+        public static bool operator >=(Enumeration left, Enumeration right)
+        {
+            return left is null ? right is null : left.CompareTo(right) >= 0;
         }
     }
 }
