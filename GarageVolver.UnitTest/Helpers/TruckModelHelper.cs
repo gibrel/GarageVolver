@@ -1,7 +1,7 @@
 ﻿using GarageVolver.Domain.Entities;
 using GarageVolver.Domain.Helpers;
-using System.Linq;
 using System;
+using System.Linq;
 
 namespace GarageVolver.UnitTest.Helpers
 {

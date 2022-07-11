@@ -16,7 +16,7 @@ namespace GarageVolver.Service.Validators
                 .NotNull().WithMessage("Please insert model year.")
                 .GreaterThanOrEqualTo(DateTime.Now.Year)
                     .WithMessage(t => $"[ModelYear:{t.ModelYear}] Model year must be current year of next year.")
-                .LessThanOrEqualTo(DateTime.Now.Year+1)
+                .LessThanOrEqualTo(DateTime.Now.Year + 1)
                     .WithMessage(t => $"[ModelYear:{t.ModelYear}] Model year must be current year of next year.");
 
             RuleFor(t => t.ManufacturingYear)
