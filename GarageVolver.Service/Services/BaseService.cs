@@ -2,6 +2,7 @@
 using FluentValidation;
 using GarageVolver.Domain.Entities;
 using GarageVolver.Domain.Interfaces;
+using System.Data.Entity.Core;
 
 namespace GarageVolver.Service.Services
 {
@@ -69,7 +70,7 @@ namespace GarageVolver.Service.Services
         protected void Validate(TEntity obj, AbstractValidator<TEntity> validator)
         {
             if (obj == null)
-                throw new Exception("Registry not detected!");
+                throw new ObjectNotFoundException("Registry not detected!");
 
             validator.ValidateAndThrow(obj);
         }
