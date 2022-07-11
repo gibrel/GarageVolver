@@ -65,7 +65,7 @@ namespace GarageVolver.UnitTest.Systems.Repositories
             await sut.Insert(truck);
             var result = await sut.Select(truck.Id);
 
-            result.Id.Should().Be(truck.Id);
+            result?.Id.Should().Be(truck.Id);
         }
     }
 }
